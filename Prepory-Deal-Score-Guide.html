@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepory Deal Score Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #2d3748; line-height: 1.6; }
+
+        .header { background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); color: white; padding: 48px 0 60px; text-align: center; }
+        .header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .header .tagline { font-size: 1.05rem; opacity: 0.8; max-width: 750px; margin: 0 auto; white-space: nowrap; }
+        .header-intro { max-width: 760px; margin: 28px auto 0; font-size: 0.92rem; opacity: 0.9; line-height: 1.75; text-align: left; background: rgba(255,255,255,0.08); padding: 20px 26px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Score cards */
+        .score-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: -36px auto 40px; position: relative; z-index: 1; }
+        .score-card { background: white; border-radius: 12px; padding: 28px 20px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-top: 4px solid #cbd5e0; }
+        .score-card.fit { border-top-color: #3182ce; }
+        .score-card.engagement { border-top-color: #38a169; }
+        .score-card.total { border-top-color: #d69e2e; }
+        .score-card .icon { font-size: 2rem; margin-bottom: 8px; }
+        .score-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .score-card .range { font-size: 0.8rem; color: #718096; background: #f7fafc; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
+        .score-card p { font-size: 0.9rem; color: #4a5568; }
+        .score-card .quote { font-style: italic; color: #718096; font-size: 0.85rem; margin-top: 8px; }
+
+        .formula { text-align: center; margin: -10px 0 40px; padding: 16px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .formula span { font-size: 1.3rem; font-weight: 700; }
+        .formula .blue { color: #3182ce; }
+        .formula .green { color: #38a169; }
+        .formula .gold { color: #d69e2e; }
+        .formula .plus { color: #a0aec0; margin: 0 8px; }
+        .formula .eq { color: #a0aec0; margin: 0 8px; }
+
+        /* Sections */
+        .section { background: white; border-radius: 12px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .section h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .section h2 .badge { font-size: 0.65rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge.fit-badge { background: #ebf8ff; color: #2b6cb0; }
+        .badge.eng-badge { background: #f0fff4; color: #276749; }
+        .badge.weight-badge { background: #faf5ff; color: #6b46c1; }
+        .section .subtitle { color: #718096; font-size: 0.9rem; margin-bottom: 20px; }
+        .section h3 { font-size: 1.05rem; font-weight: 600; margin: 24px 0 10px; color: #2d3748; padding-bottom: 6px; border-bottom: 2px solid #edf2f7; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.9rem; }
+        thead th { background: #f7fafc; color: #4a5568; font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid #e2e8f0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; }
+        tbody td { padding: 10px 14px; border-bottom: 1px solid #edf2f7; }
+        tbody tr:hover { background: #f7fafc; }
+        .points { font-weight: 700; color: #38a169; white-space: nowrap; }
+        .points-high { font-weight: 700; color: #2b6cb0; }
+        .programs { font-size: 0.82rem; color: #718096; }
+
+        /* Callout */
+        .callout { background: #f7fafc; border-left: 4px solid #3182ce; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.88rem; color: #4a5568; line-height: 1.7; }
+        .callout.green { border-left-color: #38a169; background: #f0fff4; }
+        .callout.purple { border-left-color: #6b46c1; background: #faf5ff; }
+        .callout.gold { border-left-color: #d69e2e; background: #fffff0; }
+
+        /* Why box */
+        .why-box { background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0 20px; font-size: 0.86rem; color: #4a5568; line-height: 1.7; }
+        .why-box strong { color: #2d3748; }
+
+        /* Weight bar */
+        .weight-bar { display: flex; border-radius: 8px; overflow: hidden; margin: 16px 0 24px; height: 36px; font-size: 0.78rem; font-weight: 600; }
+        .weight-bar div { display: flex; align-items: center; justify-content: center; color: white; }
+        .wb-tier { background: #3182ce; }
+        .wb-channel { background: #2b6cb0; }
+        .wb-signals { background: #38a169; }
+        .wb-priority { background: #d69e2e; }
+
+        /* Heatmap */
+        .heatmap { border-collapse: separate; border-spacing: 3px; margin: 16px 0 12px; }
+        .heatmap th { background: transparent; border: none; font-size: 0.75rem; color: #718096; font-weight: 600; padding: 6px 8px; text-align: center; }
+        .heatmap td { padding: 10px 8px; text-align: center; font-weight: 700; font-size: 0.9rem; border-radius: 6px; border: none; }
+        .heatmap .row-label { text-align: left; font-weight: 600; font-size: 0.8rem; color: #4a5568; background: transparent; padding-right: 12px; }
+        .ht-a { background: #c6f6d5; color: #22543d; }
+        .ht-b { background: #fefcbf; color: #744210; }
+        .ht-c { background: #fed7d7; color: #9b2c2c; }
+
+        /* Persona cards */
+        .persona { border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 22px; margin: 12px 0; }
+        .persona-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .persona-name { font-weight: 700; font-size: 0.95rem; }
+        .persona-tier { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+        .persona-desc { font-size: 0.85rem; color: #718096; margin-bottom: 12px; }
+        .persona-bar { height: 10px; border-radius: 5px; margin-bottom: 8px; }
+        .persona-math { font-size: 0.8rem; color: #718096; display: flex; flex-wrap: wrap; gap: 6px; }
+        .persona-math span { background: #f7fafc; padding: 2px 8px; border-radius: 4px; }
+        .tier-a-pill { background: #c6f6d5; color: #22543d; }
+        .tier-b-pill { background: #fefcbf; color: #744210; }
+        .tier-c-pill { background: #fed7d7; color: #9b2c2c; }
+
+        /* Threshold grid */
+        .grid-container { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; margin-top: 16px; }
+        .grid-table { flex: 1; min-width: 200px; }
+        .threshold-grid { flex: 0 0 auto; }
+        .matrix { border-collapse: collapse; }
+        .matrix td { width: 64px; height: 44px; text-align: center; font-weight: 700; font-size: 0.85rem; border: 2px solid white; border-radius: 6px; }
+        .matrix .label-cell { background: transparent; border: none; font-size: 0.75rem; color: #718096; font-weight: 600; }
+        .cell-a1 { background: #45b5a7; color: #2d3748; }
+        .cell-a2 { background: #93d4c8; color: #2d3748; }
+        .cell-a3 { background: #e8d5a8; color: #2d3748; }
+        .cell-b1 { background: #93d4c8; color: #2d3748; }
+        .cell-b2 { background: #e8d5a8; color: #2d3748; }
+        .cell-b3 { background: #e6acac; color: #2d3748; }
+        .cell-c1 { background: #e8d5a8; color: #2d3748; }
+        .cell-c2 { background: #e6acac; color: #2d3748; }
+        .cell-c3 { background: #cc4444; color: white; }
+        .matrix-label { text-align: center; font-size: 0.7rem; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; }
+        .axis-label { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.7rem; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Action tags */
+        .action-table td:last-child { font-size: 0.82rem; }
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .tag-hot { background: #fed7d7; color: #c53030; }
+        .tag-warm { background: #fefcbf; color: #975a16; }
+        .tag-cold { background: #e2e8f0; color: #4a5568; }
+
+        /* Properties table */
+        .prop-name { font-weight: 600; }
+        .prop-internal { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #718096; background: #edf2f7; padding: 2px 6px; border-radius: 4px; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 30px 0; color: #a0aec0; font-size: 0.8rem; }
+
+        /* Scenario table */
+        .scenario-table td:first-child { font-weight: 600; }
+        .scenario-table .calc { font-size: 0.82rem; color: #718096; }
+
+        @media (max-width: 700px) {
+            .score-cards { grid-template-columns: 1fr; }
+            .grid-container { flex-direction: column; }
+            .header h1 { font-size: 1.6rem; }
+            .header .tagline { white-space: normal; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <h1>Prepory Deal Score</h1>
+        <p class="tagline">How we score every deal on fit and engagement to prioritize the hottest leads</p>
+        <div class="header-intro">
+            The Prepory Deal Score is a lead scoring system built inside HubSpot that automatically ranks every deal in our pipeline. It works by evaluating two things: <strong>fit</strong> (how well the lead matches our ideal customer based on their lead source, product interest, and buying signals) and <strong>engagement</strong> (how actively they interact with us through email opens, link clicks, and website visits). These two scores combine into a single number on each deal record, along with a tier label from A1 (hottest) to C3 (coldest). The score updates in real time as properties change and contacts take actions, giving enrollment officers a clear, data-driven way to know which deals to prioritize first. No manual input is needed &mdash; the system scores every deal automatically.
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Three Score Cards -->
+    <div class="score-cards">
+        <div class="score-card fit">
+            <div class="icon">&#x1f4cb;</div>
+            <h3>Fit Score</h3>
+            <div class="range">0 to 100</div>
+            <p>Points from <strong>properties</strong> &mdash; lead source, product tier, buying signals</p>
+            <div class="quote">"How good is this lead on paper?"</div>
+        </div>
+        <div class="score-card engagement">
+            <div class="icon">&#x26a1;</div>
+            <h3>Engagement Score</h3>
+            <div class="range">0 to 100</div>
+            <p>Points from <strong>actions</strong> &mdash; email opens, link clicks, page visits</p>
+            <div class="quote">"How active is this lead?"</div>
+        </div>
+        <div class="score-card total">
+            <div class="icon">&#x2b50;</div>
+            <h3>Total Score</h3>
+            <div class="range">0 to 200</div>
+            <p>The combined number on the deal record. <strong>Higher = hotter deal</strong></p>
+            <div class="quote">"Should we call them now?"</div>
+        </div>
+    </div>
+
+    <div class="formula">
+        <span class="blue">Fit (max 100)</span>
+        <span class="plus">+</span>
+        <span class="green">Engagement (max 100)</span>
+        <span class="eq">=</span>
+        <span class="gold">Deal Score (max 200)</span>
+    </div>
+
+    <!-- WHY THESE NUMBERS -->
+    <div class="section">
+        <h2>How We Built the Formula</h2>
+        <p class="subtitle">The scoring was designed mathematically so both fit and engagement can realistically reach 100, and the A/B/C thresholds reflect actual deal quality.</p>
+
+        <div class="callout purple">
+            <strong>The design principle:</strong> A deal picks exactly <strong>one</strong> lead channel and <strong>one</strong> product tier. Signals and priority are optional bonuses. So the formula is: <strong>Channel + Tier + Signals + Priority = 100 max</strong>. We weighted each group by how well it predicts deal value, then set thresholds based on where the 35 possible channel-tier combinations naturally cluster.
+        </div>
+
+        <h3>Group Weights</h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:8px;">Each group gets a percentage of the 100-point budget based on its predictive value.</p>
+
+        <div class="weight-bar">
+            <div class="wb-tier" style="width:40%;">Product Tier &mdash; 40%</div>
+            <div class="wb-channel" style="width:30%;">Channel &mdash; 30%</div>
+            <div class="wb-signals" style="width:20%;">Signals &mdash; 20%</div>
+            <div class="wb-priority" style="width:10%;">Priority &mdash; 10%</div>
+        </div>
+
+        <div class="why-box">
+            <strong>Why Product Tier gets 40%:</strong> The program a deal is interested in directly determines revenue. A Synthesis deal (Tier 5) is worth significantly more than a Spark deal (Tier 1). This is the strongest predictor of deal value.<br><br>
+            <strong>Why Lead Channel gets 30%:</strong> Where the lead came from drives conversion likelihood. Forbes leads have the highest intent; organic and referral leads behave differently. This is the second-best predictor.<br><br>
+            <strong>Why Signals get 20%:</strong> Re-engagement after going quiet (+15) and competitor awareness (+5) are strong intent signals, but they're optional bonuses &mdash; not every deal triggers them. They serve as tie-breakers that push borderline deals up a tier.<br><br>
+            <strong>Why Priority gets 10%:</strong> A manual flag from the team. Important as a human override, but shouldn't dominate the data-driven score.
+        </div>
+    </div>
+
+    <!-- FIT SCORE SECTION -->
+    <div class="section">
+        <h2>Fit Score &mdash; Point Values <span class="badge fit-badge">Property-Based</span> <span class="badge weight-badge">Max 100</span></h2>
+        <p class="subtitle">Every deal gets exactly one Lead Channel score + one Product Tier score + any applicable signals and priority.</p>
+
+        <h3>1. Lead Channel &amp; Source <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; max 30 points (30% weight)</span></h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Where the lead came from. Based on the associated contact's Lead Channel property. Points decrease using a decay curve where each step down loses ~15-20% of value.</p>
+        <table>
+            <thead><tr><th>Lead Channel</th><th style="text-align:center">% of Max</th><th style="text-align:right">Points</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Forbes</strong></td><td style="text-align:center; color:#718096;">100%</td><td class="points" style="text-align:right">+30</td></tr>
+                <tr><td><strong>Referral - WOM</strong></td><td style="text-align:center; color:#718096;">83%</td><td class="points" style="text-align:right">+25</td></tr>
+                <tr><td><strong>Webinar</strong></td><td style="text-align:center; color:#718096;">73%</td><td class="points" style="text-align:right">+22</td></tr>
+                <tr><td><strong>Paid Social</strong></td><td style="text-align:center; color:#718096;">57%</td><td class="points" style="text-align:right">+17</td></tr>
+                <tr><td><strong>AI Lead</strong></td><td style="text-align:center; color:#718096;">40%</td><td class="points" style="text-align:right">+12</td></tr>
+                <tr><td><strong>Organic</strong></td><td style="text-align:center; color:#718096;">23%</td><td class="points" style="text-align:right">+7</td></tr>
+                <tr><td><strong>Other</strong></td><td style="text-align:center; color:#718096;">10%</td><td class="points" style="text-align:right">+3</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why Forbes is 30:</strong> Forbes leads come through the Forbes partnership &mdash; they've already shown high intent by clicking through premium content. They convert at the highest rate.<br>
+            <strong>Why Referral is 25:</strong> Word-of-mouth referrals come with built-in trust. Almost as good as Forbes but slightly lower because the intent isn't always as immediate.<br>
+            <strong>Why Other is only 3:</strong> Unknown or unclassified sources have the lowest predictability. They still get some credit for being in the pipeline.
+        </div>
+
+        <h3>2. Product Tier <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; max 40 points (40% weight)</span></h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Higher-priced programs = higher priority. Uses clean 8-point linear steps so each tier jump is equally meaningful.</p>
+        <table>
+            <thead><tr><th>Tier</th><th>Programs</th><th style="text-align:center">Step</th><th style="text-align:right">Points</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Tier 5</strong></td><td class="programs">Synthesis, Marathon US, Marathon UK, Finish Line US, Finish Line UK</td><td style="text-align:center; color:#718096;">5 &times; 8</td><td class="points" style="text-align:right">+40</td></tr>
+                <tr><td><strong>Tier 4</strong></td><td class="programs">Momentum, Headstart US, Headstart UK</td><td style="text-align:center; color:#718096;">4 &times; 8</td><td class="points" style="text-align:right">+32</td></tr>
+                <tr><td><strong>Tier 3</strong></td><td class="programs">Homestretch, Fast Track US, Fast Track UK</td><td style="text-align:center; color:#718096;">3 &times; 8</td><td class="points" style="text-align:right">+24</td></tr>
+                <tr><td><strong>Tier 2</strong></td><td class="programs">Launchpad, A La Carte Career Coaching, A La Carte College Coaching</td><td style="text-align:center; color:#718096;">2 &times; 8</td><td class="points" style="text-align:right">+16</td></tr>
+                <tr><td><strong>Tier 1</strong></td><td class="programs">Spark, Ignite</td><td style="text-align:center; color:#718096;">1 &times; 8</td><td class="points" style="text-align:right">+8</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why 8-point steps:</strong> Linear steps mean a Tier 5 deal is exactly 5&times; more valuable than Tier 1. No arbitrary jumps. Moving up one tier always adds the same 8 points, making the scoring predictable and fair.
+        </div>
+
+        <h3>3. Lead Signals <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; max 20 points (20% weight)</span></h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Optional bonuses that indicate buying intent. A deal can trigger zero, one, or both.</p>
+        <table>
+            <thead><tr><th>Signal</th><th>When It Fires</th><th style="text-align:right">Points</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Re-engaged After Inactivity</strong></td><td>WF2 sets property to "Yes" after 10+ days of silence, then the contact comes back</td><td class="points" style="text-align:right">+15</td></tr>
+                <tr><td><strong>Competitor Awareness</strong></td><td>First conversation = "No, we've doing our research" (set by WF3)</td><td class="points" style="text-align:right">+5</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why Re-engaged is 15 and Competitor is 5:</strong> A contact going silent for 10+ days then coming back is a very strong buying signal &mdash; they've been thinking about it and came back on their own. Competitor awareness means they're comparing options, which shows serious intent but is less decisive. The 75/25 split within the group reflects this.
+        </div>
+
+        <h3>4. Priority <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; max 10 points (10% weight)</span></h3>
+        <table>
+            <thead><tr><th>Condition</th><th style="text-align:right">Points</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Priority = Yes</strong></td><td class="points" style="text-align:right">+10</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why Priority is only 10:</strong> This is a manual team flag &mdash; a human override. It should nudge the score but not dominate. 10 points is enough to push a borderline B deal (e.g., 45) into A territory (55) without inflating scores artificially.
+        </div>
+
+        <div class="callout">
+            <strong>Max possible fit score = 100:</strong> Forbes (30) + Tier 5 (40) + Re-engaged (15) + Competitor (5) + Priority (10) = <strong>100</strong>
+        </div>
+
+        <h3>Fit Score Heatmap &mdash; All 35 Combinations</h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:8px;">Every cell shows the base fit score (channel + tier only, before signals/priority). Colors show which threshold tier it falls into.</p>
+
+        <table class="heatmap">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Tier 5 (40)</th>
+                    <th>Tier 4 (32)</th>
+                    <th>Tier 3 (24)</th>
+                    <th>Tier 2 (16)</th>
+                    <th>Tier 1 (8)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="row-label">Forbes (30)</td><td class="ht-a">70</td><td class="ht-a">62</td><td class="ht-a">54</td><td class="ht-b">46</td><td class="ht-b">38</td></tr>
+                <tr><td class="row-label">Referral (25)</td><td class="ht-a">65</td><td class="ht-a">57</td><td class="ht-b">49</td><td class="ht-b">41</td><td class="ht-b">33</td></tr>
+                <tr><td class="row-label">Webinar (22)</td><td class="ht-a">62</td><td class="ht-a">54</td><td class="ht-b">46</td><td class="ht-b">38</td><td class="ht-b">30</td></tr>
+                <tr><td class="row-label">Paid Social (17)</td><td class="ht-a">57</td><td class="ht-b">49</td><td class="ht-b">41</td><td class="ht-b">33</td><td class="ht-b">25</td></tr>
+                <tr><td class="row-label">AI Lead (12)</td><td class="ht-a">52</td><td class="ht-b">44</td><td class="ht-b">36</td><td class="ht-b">28</td><td class="ht-c">20</td></tr>
+                <tr><td class="row-label">Organic (7)</td><td class="ht-b">47</td><td class="ht-b">39</td><td class="ht-b">31</td><td class="ht-c">23</td><td class="ht-c">15</td></tr>
+                <tr><td class="row-label">Other (3)</td><td class="ht-b">43</td><td class="ht-b">35</td><td class="ht-b">27</td><td class="ht-c">19</td><td class="ht-c">11</td></tr>
+            </tbody>
+        </table>
+
+        <div style="display:flex; gap:16px; margin:8px 0 16px; font-size:0.8rem;">
+            <span style="display:flex; align-items:center; gap:5px;"><span style="width:14px; height:14px; border-radius:3px; background:#c6f6d5;"></span> A tier (50+)</span>
+            <span style="display:flex; align-items:center; gap:5px;"><span style="width:14px; height:14px; border-radius:3px; background:#fefcbf;"></span> B tier (25&ndash;49)</span>
+            <span style="display:flex; align-items:center; gap:5px;"><span style="width:14px; height:14px; border-radius:3px; background:#fed7d7;"></span> C tier (0&ndash;24)</span>
+        </div>
+
+        <div class="why-box">
+            <strong>Reading the heatmap:</strong> 9 out of 35 combinations land in A tier on base score alone &mdash; these are genuinely premium deals (top channels + top products). 21 land in B &mdash; the solid middle ground. Only 5 land in C &mdash; low channels with low products. Signals and priority can push B deals into A, which is exactly how bonuses should work.
+        </div>
+    </div>
+
+    <!-- ENGAGEMENT SCORE SECTION -->
+    <div class="section">
+        <h2>Engagement Score &mdash; Point Values <span class="badge eng-badge">Event-Based</span> <span class="badge weight-badge">Max 100</span></h2>
+        <p class="subtitle">Points from actions the contact takes. All events use "Score every time" &mdash; points stack with each occurrence. Values are deliberately low because they accumulate over many interactions.</p>
+
+        <div class="callout green">
+            <strong>Why engagement values are small numbers:</strong> Unlike fit (where you pick one channel and one tier), engagement stacks every single time. A contact might open 10+ emails over a deal cycle. Even +2 per open becomes 20+ points quickly. Small per-event values prevent score inflation while still rewarding consistent engagement.
+        </div>
+
+        <h3>Event Value Hierarchy</h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Not all interactions are equal. Events are ranked by how strongly they signal buying intent.</p>
+
+        <div style="display:flex; align-items:center; gap:0; flex-wrap:wrap; margin:8px 0 20px;">
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#ebf8ff; color:#2b6cb0;">Sales open (7)</span>
+            <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#ebf8ff; color:#2b6cb0;">Sales click (5)</span>
+            <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#f0fff4; color:#276749;">Mktg click (4)</span>
+            <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#f0fff4; color:#276749;">Page visit (3)</span>
+            <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#f7fafc; color:#718096;">Mktg open (2)</span>
+        </div>
+
+        <h3>Sales Emails (1:1) <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; strongest signal</span></h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Personal emails sent by enrollment officers directly from HubSpot (post-IC follow-ups, profile plans, etc.)</p>
+        <table>
+            <thead><tr><th>Event</th><th style="text-align:right">Points (each time)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Sales email open</strong></td><td class="points-high" style="text-align:right">+7</td></tr>
+                <tr><td><strong>Sales email click</strong></td><td class="points-high" style="text-align:right">+5</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why sales email open is worth the most (7):</strong> When a contact opens the enrollment officer's personal email &mdash; a post-IC follow-up, a profile plan, a next-steps message &mdash; that's the strongest buying signal we track. It means they're actively reading personal communication from the person who will close the deal. This is more important than clicking a link, because the open itself proves they're engaged with the EO relationship.<br><br>
+            <strong>Why sales click is 5 (not higher):</strong> A click inside a sales email is valuable, but the open already captured the key signal. The click adds to it but doesn't double it.
+        </div>
+
+        <h3>Marketing Emails <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; medium signal</span></h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Bulk campaigns, newsletters, and automated workflow emails.</p>
+        <table>
+            <thead><tr><th>Event</th><th style="text-align:right">Points (each time)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Clicked link in email</strong></td><td class="points" style="text-align:right">+4</td></tr>
+                <tr><td><strong>Opened email</strong></td><td class="points" style="text-align:right">+2</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why marketing click is 4:</strong> Clicking through on a campaign shows genuine interest &mdash; they wanted to learn more. But it's a mass email, not personal, so it's worth less than sales email interactions.<br>
+            <strong>Why marketing open is only 2:</strong> This is the weakest signal. Email opens can be triggered by auto-preview in some email clients. It still counts (repeated opens show the contact is seeing your brand), but each one contributes minimally.
+        </div>
+
+        <h3>Page Visits <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; passive interest</span></h3>
+        <table>
+            <thead><tr><th>Event</th><th style="text-align:right">Points (each time)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Page visited</strong></td><td class="points" style="text-align:right">+3</td></tr>
+            </tbody>
+        </table>
+        <div class="why-box">
+            <strong>Why page visit is 3:</strong> Browsing the website shows active research &mdash; more intentional than passively opening an email (2), but less decisive than clicking a specific link in a campaign (4). A contact visiting 5 pages earns 15 points, which alone won't push them to A tier but contributes meaningfully alongside email engagement.
+        </div>
+
+        <h3>How It Adds Up &mdash; Contact Personas</h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">These personas model real contact behavior over a typical 2&ndash;4 week deal cycle to show how the scoring works in practice.</p>
+
+        <div class="persona">
+            <div class="persona-header">
+                <span class="persona-name">&#x1f9ca; Ghost</span>
+                <span class="persona-tier tier-c-pill">C tier &mdash; 7 pts</span>
+            </div>
+            <div class="persona-desc">Opened 2 marketing emails, visited the site once, never touched a sales email.</div>
+            <div class="persona-bar" style="background: linear-gradient(90deg, #fc8181 7%, #fed7d7 7%);"></div>
+            <div class="persona-math">
+                <span>2 mktg opens = 4</span>
+                <span>1 page visit = 3</span>
+            </div>
+        </div>
+
+        <div class="persona">
+            <div class="persona-header">
+                <span class="persona-name">&#x1f321; Lukewarm</span>
+                <span class="persona-tier tier-b-pill">B tier &mdash; 25 pts</span>
+            </div>
+            <div class="persona-desc">Opens most marketing emails, clicked once, opened a sales email, visited a couple pages.</div>
+            <div class="persona-bar" style="background: linear-gradient(90deg, #ecc94b 25%, #fefcbf 25%);"></div>
+            <div class="persona-math">
+                <span>5 mktg opens = 10</span>
+                <span>1 mktg click = 4</span>
+                <span>1 sales open = 7</span>
+                <span>2 page visits = 6</span>
+            </div>
+        </div>
+
+        <div class="persona">
+            <div class="persona-header">
+                <span class="persona-name">&#x1f525; Warming Up</span>
+                <span class="persona-tier tier-b-pill">B tier &mdash; 43 pts</span>
+            </div>
+            <div class="persona-desc">Engaging with both marketing and sales emails, browsing the website regularly.</div>
+            <div class="persona-bar" style="background: linear-gradient(90deg, #ecc94b 43%, #fefcbf 43%);"></div>
+            <div class="persona-math">
+                <span>6 mktg opens = 12</span>
+                <span>2 mktg clicks = 8</span>
+                <span>2 sales opens = 14</span>
+                <span>3 page visits = 9</span>
+            </div>
+        </div>
+
+        <div class="persona">
+            <div class="persona-header">
+                <span class="persona-name">&#x1f4a5; Hot Lead</span>
+                <span class="persona-tier tier-a-pill">A tier &mdash; 77 pts</span>
+            </div>
+            <div class="persona-desc">Clicking sales email links, actively browsing, responding to everything the EO sends.</div>
+            <div class="persona-bar" style="background: linear-gradient(90deg, #48bb78 77%, #c6f6d5 77%);"></div>
+            <div class="persona-math">
+                <span>8 mktg opens = 16</span>
+                <span>3 mktg clicks = 12</span>
+                <span>4 sales opens = 28</span>
+                <span>2 sales clicks = 10</span>
+                <span>5 page visits = 15</span>
+            </div>
+        </div>
+
+        <div class="persona">
+            <div class="persona-header">
+                <span class="persona-name">&#x1f680; On Fire</span>
+                <span class="persona-tier tier-a-pill">A tier &mdash; 100 pts (capped)</span>
+            </div>
+            <div class="persona-desc">Extremely active &mdash; opens everything, clicks multiple sales links, browses extensively. HubSpot caps the score at 100.</div>
+            <div class="persona-bar" style="background: linear-gradient(90deg, #48bb78 100%, #c6f6d5 100%);"></div>
+            <div class="persona-math">
+                <span>12 mktg opens = 24</span>
+                <span>5 mktg clicks = 20</span>
+                <span>6 sales opens = 42</span>
+                <span>3 sales clicks = 15</span>
+                <span>8 page visits = 24</span>
+                <span style="font-weight:600;">Raw: 125 &rarr; capped at 100</span>
+            </div>
+        </div>
+
+        <div class="callout gold">
+            <strong>The tipping point is sales email engagement.</strong> A contact can open every marketing email and browse the website all day &mdash; they'll stay B tier. The moment they start opening and clicking the enrollment officer's personal emails, they cross into A. That's by design &mdash; it's the behavior that best predicts a close.
+        </div>
+    </div>
+
+    <!-- THRESHOLDS -->
+    <div class="section">
+        <h2>Thresholds &mdash; The A1 to C3 Grid</h2>
+        <p class="subtitle">The threshold combines fit and engagement into a single tier label. <strong>Letter</strong> = fit level &bull; <strong>Number</strong> = engagement level.</p>
+
+        <div class="grid-container">
+            <div class="grid-table">
+                <table>
+                    <thead><tr><th>Tier</th><th>Fit Range</th><th>Engagement Range</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>A / 1</strong></td><td>50 &ndash; 100</td><td>50 &ndash; 100</td></tr>
+                        <tr><td><strong>B / 2</strong></td><td>25 &ndash; 49</td><td>25 &ndash; 49</td></tr>
+                        <tr><td><strong>C / 3</strong></td><td>0 &ndash; 24</td><td>0 &ndash; 24</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="why-box" style="margin-top:16px;">
+                    <strong>Why 50/25 instead of 75/50:</strong> With the old thresholds (A = 75+), a Forbes + Tier 5 deal scored only 70 &mdash; that's B tier for our best possible lead. The new thresholds are calibrated to the actual scoring range: 9 out of 35 channel+tier combinations naturally land above 50, making A tier meaningful but achievable for genuinely premium deals.
+                </div>
+
+                <table class="action-table" style="margin-top:20px">
+                    <thead><tr><th>Tier</th><th>Meaning</th><th>Action</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>A1</strong></td><td>Best fit + highest engagement</td><td><span class="tag tag-hot">CALL NOW</span></td></tr>
+                        <tr><td><strong>A2</strong></td><td>Best fit + medium engagement</td><td><span class="tag tag-hot">PRIORITIZE</span></td></tr>
+                        <tr><td><strong>A3</strong></td><td>Best fit + quiet</td><td><span class="tag tag-warm">NUDGE</span></td></tr>
+                        <tr><td><strong>B1</strong></td><td>Decent fit + very engaged</td><td><span class="tag tag-warm">PURSUE</span></td></tr>
+                        <tr><td><strong>B2</strong></td><td>Decent fit + medium engagement</td><td><span class="tag tag-warm">NURTURE</span></td></tr>
+                        <tr><td><strong>C3</strong></td><td>Low fit + low engagement</td><td><span class="tag tag-cold">LOW PRIORITY</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="threshold-grid">
+                <table class="matrix">
+                    <tr>
+                        <td class="label-cell"></td>
+                        <td class="label-cell"></td>
+                        <td class="label-cell" colspan="3" style="text-align:center; padding-bottom:6px;">Engagement &rarr;</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell"></td>
+                        <td class="label-cell"></td>
+                        <td class="label-cell">3 (low)</td>
+                        <td class="label-cell">2 (med)</td>
+                        <td class="label-cell">1 (high)</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell" rowspan="3" style="vertical-align:middle;"><span class="axis-label">Fit &rarr;</span></td>
+                        <td class="label-cell">A</td>
+                        <td class="cell-a3">A3</td>
+                        <td class="cell-a2">A2</td>
+                        <td class="cell-a1">A1</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">B</td>
+                        <td class="cell-b3">B3</td>
+                        <td class="cell-b2">B2</td>
+                        <td class="cell-b1">B1</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">C</td>
+                        <td class="cell-c3">C3</td>
+                        <td class="cell-c2">C2</td>
+                        <td class="cell-c1">C1</td>
+                    </tr>
+                </table>
+                <div class="matrix-label">Hottest &#x2197; &nbsp;&nbsp; Coldest &#x2199;</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REAL DEAL SCENARIOS -->
+    <div class="section">
+        <h2>Real Deal Scenarios</h2>
+        <p class="subtitle">Example deals showing how fit + engagement combine to produce the final tier.</p>
+
+        <table class="scenario-table">
+            <thead><tr><th>Deal</th><th>Fit</th><th>Engagement</th><th>Total</th><th>Tier</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>Forbes + Tier 5 + re-engaged</td>
+                    <td><span class="calc">30+40+15 =</span> <strong>85</strong></td>
+                    <td><span class="calc">Hot lead =</span> <strong>77</strong></td>
+                    <td><strong>162</strong></td>
+                    <td><span class="tag tag-hot">A1</span></td>
+                </tr>
+                <tr>
+                    <td>Referral + Tier 4 + priority</td>
+                    <td><span class="calc">25+32+10 =</span> <strong>67</strong></td>
+                    <td><span class="calc">Warming up =</span> <strong>43</strong></td>
+                    <td><strong>110</strong></td>
+                    <td><span class="tag tag-warm">A2</span></td>
+                </tr>
+                <tr>
+                    <td>Paid Social + Tier 3</td>
+                    <td><span class="calc">17+24 =</span> <strong>41</strong></td>
+                    <td><span class="calc">Lukewarm =</span> <strong>25</strong></td>
+                    <td><strong>66</strong></td>
+                    <td><span class="tag tag-warm">B2</span></td>
+                </tr>
+                <tr>
+                    <td>Organic + Tier 1</td>
+                    <td><span class="calc">7+8 =</span> <strong>15</strong></td>
+                    <td><span class="calc">Ghost =</span> <strong>7</strong></td>
+                    <td><strong>22</strong></td>
+                    <td><span class="tag tag-cold">C3</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- HUBSPOT PROPERTIES -->
+    <div class="section">
+        <h2>HubSpot Properties</h2>
+        <p class="subtitle">Four properties are automatically created and updated on every deal record.</p>
+        <table>
+            <thead><tr><th>Property</th><th>Internal Name</th><th>Shows</th></tr></thead>
+            <tbody>
+                <tr><td class="prop-name">Prepory Deal Score</td><td><span class="prop-internal">prepory_deal_score</span></td><td>Combined total (fit + engagement)</td></tr>
+                <tr><td class="prop-name">Prepory Deal Score fit</td><td><span class="prop-internal">prepory_deal_score_fit</span></td><td>Fit score only</td></tr>
+                <tr><td class="prop-name">Prepory Deal Score engagement</td><td><span class="prop-internal">prepory_deal_score_engagement</span></td><td>Engagement score only</td></tr>
+                <tr><td class="prop-name">Prepory Deal Score threshold</td><td><span class="prop-internal">prepory_deal_score_threshold</span></td><td>Tier label (A1, B2, C3, etc.)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- WHERE IT'S BUILT -->
+    <div class="section">
+        <h2>Where Everything Lives in HubSpot</h2>
+        <p class="subtitle">A quick reference for where to find and edit each component.</p>
+
+        <h3>Lead Scoring App</h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Settings &rarr; Lead Scoring &rarr; Prepory Deal Score</p>
+        <table>
+            <thead><tr><th>Tab</th><th>What's There</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Criteria</strong></td><td>All fit groups (Lead Channel, Product Tier, Lead Signals, Priority) and all engagement events (Marketing Email, Sales Email, Page Visits) with their point values</td></tr>
+                <tr><td><strong>Settings</strong></td><td>Threshold values (A=50, B=25) and the property names</td></tr>
+                <tr><td><strong>Deals</strong></td><td>Preview of how current deals are scored</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Supporting Workflows</h3>
+        <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">These workflows feed data into properties that the scoring reads. The scoring app doesn't run these &mdash; they run independently.</p>
+        <table>
+            <thead><tr><th>Workflow</th><th>What It Does</th><th>Powers</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><strong>WF1 &mdash; Auto-Populate Lead Channel</strong></td>
+                    <td>Copies the contact's source into the deal's Lead Channel property</td>
+                    <td>Fit &rarr; Lead Channel group</td>
+                </tr>
+                <tr>
+                    <td><strong>WF2 &mdash; Re-engagement Tracker</strong></td>
+                    <td>Watches for 10+ days inactivity, then sets "Re-engaged = Yes" when contact comes back</td>
+                    <td>Fit &rarr; Re-engaged (+15)</td>
+                </tr>
+                <tr>
+                    <td><strong>WF3 &mdash; Auto-Populate First Conversation</strong></td>
+                    <td>Sets the First Conversation property from the contact's initial response</td>
+                    <td>Fit &rarr; Competitor Awareness (+5)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <strong>Engagement events don't need workflows.</strong> HubSpot automatically tracks email opens, clicks, and page visits. It also automatically categorizes emails as "Marketing Email" (bulk/automated) vs "Sales Email 1:1" (sent personally by an EO from the CRM). No setup needed for these &mdash; just add the criteria in the Lead Scoring app.
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>Prepory Deal Score Guide &bull; Last updated June 2026</p>
+</div>
+
+</body>
+</html>
