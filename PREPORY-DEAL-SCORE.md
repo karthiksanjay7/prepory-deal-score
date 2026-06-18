@@ -1,4 +1,4 @@
-# Prepory Deal Score — How It Works
+# Prepory Deal Score - How It Works
 
 The Prepory Deal Score is a **Combined Score** in HubSpot that rates every deal on two dimensions: how well the lead **fits** our ideal customer profile, and how much they're **engaging** with us. Each dimension scores out of 100, combining to a max of 200.
 
@@ -9,14 +9,14 @@ The Prepory Deal Score is a **Combined Score** in HubSpot that rates every deal 
 ### Fit Score (property-based) | Max: 100
 > "How good is this lead on paper?"
 
-Points come from **deal and contact properties** — things we know about the lead before they do anything. A deal picks exactly ONE lead channel and ONE product tier, so the formula is designed around that constraint.
+Points come from **deal and contact properties** - things we know about the lead before they do anything. A deal picks exactly ONE lead channel and ONE product tier, so the formula is designed around that constraint.
 
 **Formula**: Lead Channel (30%) + Product Tier (40%) + Lead Signals (20%) + Priority (10%) = 100 max
 
 ### Engagement Score (event-based) | Max: 100
 > "How active is this lead?"
 
-Points come from **actions the contact takes** — opening emails, clicking links, visiting pages. All events use "Score every time" so points stack with each occurrence. Per-event values are deliberately low because they accumulate.
+Points come from **actions the contact takes** - opening emails, clicking links, visiting pages. All events use "Score every time" so points stack with each occurrence. Per-event values are deliberately low because they accumulate.
 
 ### Total Score (combined) | Max: 200
 > Fit + Engagement = Total
@@ -27,7 +27,7 @@ This is the number you see on the deal record as **Prepory Deal Score**. Higher 
 
 ## What Earns Points
 
-### FIT SCORE — Property Groups
+### FIT SCORE - Property Groups
 
 #### 1. Lead Channel & Source (30 pts max)
 Where the lead came from. Scored on the associated contact's **Lead Channel** property. A deal gets exactly one of these.
@@ -43,7 +43,7 @@ Where the lead came from. Scored on the associated contact's **Lead Channel** pr
 | Other | +3 | 3% |
 
 #### 2. Product Tier (40 pts max)
-Higher-priced programs = higher priority. Scored on the deal's **Product** property. Each tier is 8 points apart — a consistent step size so the gap between tiers is always proportional.
+Higher-priced programs = higher priority. Scored on the deal's **Product** property. Each tier is 8 points apart - a consistent step size so the gap between tiers is always proportional.
 
 | Tier | Programs | Points | % of Max |
 |---|---|---|---|
@@ -70,13 +70,13 @@ Manual override for enrollment officers to flag high-priority deals.
 
 ---
 
-### ENGAGEMENT SCORE — Event Groups
+### ENGAGEMENT SCORE - Event Groups
 
-All engagement events use **"Score every time"** — meaning points stack with each occurrence. Values are deliberately low because a single contact may trigger dozens of events over a 2–4 week deal cycle.
+All engagement events use **"Score every time"** - meaning points stack with each occurrence. Values are deliberately low because a single contact may trigger dozens of events over a 2–4 week deal cycle.
 
 **Event hierarchy**: Sales click (7) > Sales open (5) > Marketing click (4) > Page visit (3) > Marketing open (2)
 
-#### Sales Emails 1:1 — strongest signal
+#### Sales Emails 1:1 - strongest signal
 Personal emails sent by enrollment officers from HubSpot (post-IC follow-ups, profile plans, etc.)
 
 | Event | Points |
@@ -84,9 +84,9 @@ Personal emails sent by enrollment officers from HubSpot (post-IC follow-ups, pr
 | Sales email click | +7 |
 | Sales email open | +5 |
 
-> Sales email click is worth the most because when a contact clicks a link in the EO's personal email — a profile plan, a scheduling link, a next-steps document — they didn't just open it, they took action. Opens can be triggered automatically by email clients; clicks prove real engagement.
+> Sales email click is worth the most because when a contact clicks a link in the EO's personal email - a profile plan, a scheduling link, a next-steps document - they didn't just open it, they took action. Opens can be triggered automatically by email clients; clicks prove real engagement.
 
-#### Marketing Emails — medium signal
+#### Marketing Emails - medium signal
 Bulk campaigns, newsletters, and automated workflow emails.
 
 | Event | Points |
@@ -118,7 +118,7 @@ The threshold takes the fit score and engagement score and assigns a **tier labe
 | B / 2 | 25 to 49 | 25 to 49 |
 | C / 3 | 0 to 24 | 0 to 24 |
 
-> **Why 50/25 instead of 75/50**: With thresholds at 75, a Forbes + Tier 5 deal (our best possible lead) scored only 70 — that's a B tier. The new thresholds are calibrated to the actual scoring range: 9 out of 35 channel×tier combinations naturally land above 50, making A tier meaningful but achievable.
+> **Why 50/25 instead of 75/50**: With thresholds at 75, a Forbes + Tier 5 deal (our best possible lead) scored only 70 - that's a B tier. The new thresholds are calibrated to the actual scoring range: 9 out of 35 channel×tier combinations naturally land above 50, making A tier meaningful but achievable.
 
 ### The Grid:
 
@@ -156,11 +156,11 @@ Fit C (low)   [  C3  ]   [  C2  ]   [  C1  ]  <-- coldest
 
 Three workflows power the Lead Signals scoring:
 
-1. **WF1 — Auto-Populate Lead Channel**: Sets the Lead Channel property on deals based on the contact's original source. Must be ON for the Lead Channel & Source scoring to work.
+1. **WF1 - Auto-Populate Lead Channel**: Sets the Lead Channel property on deals based on the contact's original source. Must be ON for the Lead Channel & Source scoring to work.
 
-2. **WF2 — Re-engagement Tracker**: Monitors deals for 10+ days of inactivity, then flags `Re-engaged After Inactivity = Yes` when the contact re-engages. Powers the +15 re-engagement bonus.
+2. **WF2 - Re-engagement Tracker**: Monitors deals for 10+ days of inactivity, then flags `Re-engaged After Inactivity = Yes` when the contact re-engages. Powers the +15 re-engagement bonus.
 
-3. **WF3 — Auto-Populate First Conversation**: Sets the First Conversation property on deals based on the contact's initial response. Must be ON for the Competitor Awareness +5 signal to work.
+3. **WF3 - Auto-Populate First Conversation**: Sets the First Conversation property on deals based on the contact's initial response. Must be ON for the Competitor Awareness +5 signal to work.
 
 ---
 
