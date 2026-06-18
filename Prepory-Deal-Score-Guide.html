@@ -118,6 +118,7 @@
         .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
         .tag-hot { background: #fed7d7; color: #c53030; }
         .tag-warm { background: #fefcbf; color: #975a16; }
+        .tag-neutral { background: #feebc8; color: #7b341e; }
         .tag-cold { background: #e2e8f0; color: #4a5568; }
 
         /* Properties table */
@@ -224,6 +225,7 @@
             <thead><tr><th>Lead Channel</th><th style="text-align:center">% of Max</th><th style="text-align:right">Points</th></tr></thead>
             <tbody>
                 <tr><td><strong>Forbes</strong></td><td style="text-align:center; color:#718096;">100%</td><td class="points" style="text-align:right">+30</td></tr>
+                <tr><td><strong>In Person Event</strong></td><td style="text-align:center; color:#718096;">83%</td><td class="points" style="text-align:right">+25</td></tr>
                 <tr><td><strong>Referral - WOM</strong></td><td style="text-align:center; color:#718096;">83%</td><td class="points" style="text-align:right">+25</td></tr>
                 <tr><td><strong>Webinar</strong></td><td style="text-align:center; color:#718096;">73%</td><td class="points" style="text-align:right">+22</td></tr>
                 <tr><td><strong>Paid Social</strong></td><td style="text-align:center; color:#718096;">57%</td><td class="points" style="text-align:right">+17</td></tr>
@@ -233,7 +235,8 @@
             </tbody>
         </table>
         <div class="why-box">
-            <strong>Why Forbes is 30:</strong> Forbes leads come through the Forbes partnership  - they've already shown high intent by clicking through premium content. They convert at the highest rate.<br>
+            <strong>Why Forbes is 30:</strong> Forbes leads come through the Forbes partnership - they've already shown high intent by clicking through premium content. They convert at the highest rate.<br>
+            <strong>Why In Person Event is 25:</strong> Face-to-face interaction at college fairs, workshops, or conferences creates real trust. They met the team, asked questions, and showed up in person - that's as strong as a referral.<br>
             <strong>Why Referral is 25:</strong> Word-of-mouth referrals come with built-in trust. Almost as good as Forbes but slightly lower because the intent isn't always as immediate.<br>
             <strong>Why Other is only 3:</strong> Unknown or unclassified sources have the lowest predictability. They still get some credit for being in the pipeline.
         </div>
@@ -491,9 +494,12 @@
                     <tbody>
                         <tr><td><strong>A1</strong></td><td>Best fit + highest engagement</td><td><span class="tag tag-hot">CALL NOW</span></td></tr>
                         <tr><td><strong>A2</strong></td><td>Best fit + medium engagement</td><td><span class="tag tag-hot">PRIORITIZE</span></td></tr>
-                        <tr><td><strong>A3</strong></td><td>Best fit + quiet</td><td><span class="tag tag-warm">NUDGE</span></td></tr>
-                        <tr><td><strong>B1</strong></td><td>Decent fit + very engaged</td><td><span class="tag tag-warm">PURSUE</span></td></tr>
+                        <tr><td><strong>A3</strong></td><td>Best fit + low engagement</td><td><span class="tag tag-warm">NUDGE</span></td></tr>
+                        <tr><td><strong>B1</strong></td><td>Decent fit + highest engagement</td><td><span class="tag tag-warm">PURSUE</span></td></tr>
                         <tr><td><strong>B2</strong></td><td>Decent fit + medium engagement</td><td><span class="tag tag-warm">NURTURE</span></td></tr>
+                        <tr><td><strong>B3</strong></td><td>Decent fit + low engagement</td><td><span class="tag tag-neutral">MONITOR</span></td></tr>
+                        <tr><td><strong>C1</strong></td><td>Low fit + highest engagement</td><td><span class="tag tag-neutral">QUALIFY</span></td></tr>
+                        <tr><td><strong>C2</strong></td><td>Low fit + medium engagement</td><td><span class="tag tag-cold">DEPRIORITIZE</span></td></tr>
                         <tr><td><strong>C3</strong></td><td>Low fit + low engagement</td><td><span class="tag tag-cold">LOW PRIORITY</span></td></tr>
                     </tbody>
                 </table>

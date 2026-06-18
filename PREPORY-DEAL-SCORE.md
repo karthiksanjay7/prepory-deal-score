@@ -35,6 +35,7 @@ Where the lead came from. Scored on the associated contact's **Lead Channel** pr
 | Lead Channel | Points | % of Max |
 |---|---|---|
 | Forbes | +30 | 30% |
+| In Person Event | +25 | 25% |
 | Referral - WOM | +25 | 25% |
 | Webinar | +22 | 22% |
 | Paid Social | +17 | 17% |
