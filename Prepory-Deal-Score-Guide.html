@@ -331,9 +331,9 @@
         <p style="font-size:0.88rem; color:#718096; margin-bottom:12px;">Not all interactions are equal. Events are ranked by how strongly they signal buying intent.</p>
 
         <div style="display:flex; align-items:center; gap:0; flex-wrap:wrap; margin:8px 0 20px;">
-            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#ebf8ff; color:#2b6cb0;">Sales open (7)</span>
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#ebf8ff; color:#2b6cb0;">Sales click (7)</span>
             <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
-            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#ebf8ff; color:#2b6cb0;">Sales click (5)</span>
+            <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#ebf8ff; color:#2b6cb0;">Sales open (5)</span>
             <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
             <span style="padding:8px 14px; font-size:0.82rem; font-weight:600; border-radius:6px; background:#f0fff4; color:#276749;">Mktg click (4)</span>
             <span style="color:#a0aec0; padding:0 6px; font-size:1.1rem;">&gt;</span>
@@ -347,13 +347,13 @@
         <table>
             <thead><tr><th>Event</th><th style="text-align:right">Points (each time)</th></tr></thead>
             <tbody>
-                <tr><td><strong>Sales email open</strong></td><td class="points-high" style="text-align:right">+7</td></tr>
-                <tr><td><strong>Sales email click</strong></td><td class="points-high" style="text-align:right">+5</td></tr>
+                <tr><td><strong>Sales email click</strong></td><td class="points-high" style="text-align:right">+7</td></tr>
+                <tr><td><strong>Sales email open</strong></td><td class="points-high" style="text-align:right">+5</td></tr>
             </tbody>
         </table>
         <div class="why-box">
-            <strong>Why sales email open is worth the most (7):</strong> When a contact opens the enrollment officer's personal email &mdash; a post-IC follow-up, a profile plan, a next-steps message &mdash; that's the strongest buying signal we track. It means they're actively reading personal communication from the person who will close the deal. This is more important than clicking a link, because the open itself proves they're engaged with the EO relationship.<br><br>
-            <strong>Why sales click is 5 (not higher):</strong> A click inside a sales email is valuable, but the open already captured the key signal. The click adds to it but doesn't double it.
+            <strong>Why sales email click is worth the most (7):</strong> When a contact clicks a link inside the enrollment officer's personal email &mdash; a profile plan link, a scheduling link, a next-steps document &mdash; that's the strongest buying signal we track. They didn't just open it, they took action. Clicking proves they read the content and engaged with what the EO sent them.<br><br>
+            <strong>Why sales open is 5 (not higher):</strong> Opening a sales email shows they're reading EO communication, which is valuable. But opens can be triggered automatically by email clients, and opening alone doesn't prove they engaged with the content. The click is the real signal.
         </div>
 
         <h3>Marketing Emails <span style="font-size:0.8rem; font-weight:400; color:#718096;">&mdash; medium signal</span></h3>
@@ -407,7 +407,7 @@
             <div class="persona-math">
                 <span>5 mktg opens = 10</span>
                 <span>1 mktg click = 4</span>
-                <span>1 sales open = 7</span>
+                <span>1 sales open = 5</span>
                 <span>2 page visits = 6</span>
             </div>
         </div>
@@ -417,13 +417,14 @@
                 <span class="persona-name">&#x1f525; Warming Up</span>
                 <span class="persona-tier tier-b-pill">B tier &mdash; 43 pts</span>
             </div>
-            <div class="persona-desc">Engaging with both marketing and sales emails, browsing the website regularly.</div>
+            <div class="persona-desc">Engaging with both marketing and sales emails, clicked a sales link once, browsing the website.</div>
             <div class="persona-bar" style="background: linear-gradient(90deg, #ecc94b 43%, #fefcbf 43%);"></div>
             <div class="persona-math">
                 <span>6 mktg opens = 12</span>
                 <span>2 mktg clicks = 8</span>
-                <span>2 sales opens = 14</span>
-                <span>3 page visits = 9</span>
+                <span>2 sales opens = 10</span>
+                <span>1 sales click = 7</span>
+                <span>2 page visits = 6</span>
             </div>
         </div>
 
@@ -437,8 +438,8 @@
             <div class="persona-math">
                 <span>8 mktg opens = 16</span>
                 <span>3 mktg clicks = 12</span>
-                <span>4 sales opens = 28</span>
-                <span>2 sales clicks = 10</span>
+                <span>4 sales opens = 20</span>
+                <span>2 sales clicks = 14</span>
                 <span>5 page visits = 15</span>
             </div>
         </div>
@@ -453,15 +454,15 @@
             <div class="persona-math">
                 <span>12 mktg opens = 24</span>
                 <span>5 mktg clicks = 20</span>
-                <span>6 sales opens = 42</span>
-                <span>3 sales clicks = 15</span>
+                <span>6 sales opens = 30</span>
+                <span>3 sales clicks = 21</span>
                 <span>8 page visits = 24</span>
-                <span style="font-weight:600;">Raw: 125 &rarr; capped at 100</span>
+                <span style="font-weight:600;">Raw: 119 &rarr; capped at 100</span>
             </div>
         </div>
 
         <div class="callout gold">
-            <strong>The tipping point is sales email engagement.</strong> A contact can open every marketing email and browse the website all day &mdash; they'll stay B tier. The moment they start opening and clicking the enrollment officer's personal emails, they cross into A. That's by design &mdash; it's the behavior that best predicts a close.
+            <strong>The tipping point is sales email clicks.</strong> A contact can open every marketing email and browse the website all day &mdash; they'll stay B tier. The moment they start clicking links in the enrollment officer's personal emails, they cross into A. That's by design &mdash; clicking a scheduling link or profile plan shows real intent to move forward.
         </div>
     </div>
 

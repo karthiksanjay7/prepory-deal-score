@@ -74,17 +74,17 @@ Manual override for enrollment officers to flag high-priority deals.
 
 All engagement events use **"Score every time"** — meaning points stack with each occurrence. Values are deliberately low because a single contact may trigger dozens of events over a 2–4 week deal cycle.
 
-**Event hierarchy**: Sales open (7) > Sales click (5) > Marketing click (4) > Page visit (3) > Marketing open (2)
+**Event hierarchy**: Sales click (7) > Sales open (5) > Marketing click (4) > Page visit (3) > Marketing open (2)
 
 #### Sales Emails 1:1 — strongest signal
 Personal emails sent by enrollment officers from HubSpot (post-IC follow-ups, profile plans, etc.)
 
 | Event | Points |
 |---|---|
-| Sales email open | +7 |
-| Sales email click | +5 |
+| Sales email click | +7 |
+| Sales email open | +5 |
 
-> Sales email open is worth the most because when a contact opens the enrollment officer's personal email, it means they're actively reading communication from the person who will close the deal. The open itself proves they're engaged with the EO relationship.
+> Sales email click is worth the most because when a contact clicks a link in the EO's personal email — a profile plan, a scheduling link, a next-steps document — they didn't just open it, they took action. Opens can be triggered automatically by email clients; clicks prove real engagement.
 
 #### Marketing Emails — medium signal
 Bulk campaigns, newsletters, and automated workflow emails.
